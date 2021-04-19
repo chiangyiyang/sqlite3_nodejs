@@ -106,3 +106,24 @@ db.run('CREATE TABLE my_table(field1 text, field2 text)',
 //關閉資料庫
 ...
 ```
+
+## 8. 如果資料表不存在時，就建立資料表
+```js
+//開啟資料庫並連線
+...
+
+
+//建立資料表
+db.run('CREATE TABLE IF NOT EXIST my_table(field1 text, field2 text)',
+  (err) => {
+    if (err) {
+      console.error(err.message);
+      return;
+    }
+    console.log('Table is created.');
+  });
+
+
+//關閉資料庫
+...
+```
