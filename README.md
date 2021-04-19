@@ -321,3 +321,28 @@ db.serialize(() => {
 db.close(callback('Close the database connection.')); //使用新的回乎函數
 ```
 
+
+## 14. 查詢資料
+```js
+...
+
+//查詢資料
+db.all('SELECT * FROM users', (err, rows) => {
+  if (err) {
+    throw err;
+  }
+  console.log('\n\n============');
+  rows.forEach((row) => {
+    console.log(row.name, row.email);
+  });
+  console.log('============\n\n');
+});
+
+//刪除資料表
+db.run('DROP TABLE IF EXISTS users',
+callback('Table is dropped.'));
+
+//關閉資料庫
+...
+```
+
