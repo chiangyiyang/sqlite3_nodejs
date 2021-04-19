@@ -346,3 +346,19 @@ callback('Table is dropped.'));
 ...
 ```
 
+## 15. 以各比資料方式查詢
+```js
+...
+
+//查詢資料
+db.each('SELECT * FROM users', (err, row) => {
+  if (err) {
+    throw err;
+  }
+  console.log(row.name, row.email);
+});
+
+//刪除資料表
+...
+```
+
