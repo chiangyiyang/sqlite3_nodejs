@@ -127,3 +127,22 @@ db.run('CREATE TABLE IF NOT EXIST my_table(field1 text, field2 text)',
 //關閉資料庫
 ...
 ```
+
+## 9. 如果資料表存在時，就刪除資料表
+```js
+//開啟資料庫並連線
+...
+
+//刪除資料表
+db.run('DROP TABLE IF EXISTS my_table',
+  (err) => {
+    if (err) {
+      console.error(err.message);
+      return;
+    }
+    console.log('Table is dropped.');
+  });
+
+//關閉資料庫
+...
+```
