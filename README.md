@@ -146,3 +146,52 @@ db.run('DROP TABLE IF EXISTS my_table',
 //關閉資料庫
 ...
 ```
+
+## 10. 插入資料
+```js
+...
+
+//建立資料表
+db.run('CREATE TABLE IF NOT EXISTS users (name text, email text)',
+  (err) => {
+    if (err) {
+      console.error(err.message);
+      return;
+    }
+    console.log('Table is created.');
+  });
+
+
+//插入2筆資料
+db.run('INSERT INTO users ( name , email ) VALUES ( ?, ? ), ( ?, ? )',
+[
+  'John', 'john@gmail.com',
+  'Mary', 'mary@gmail.com',
+],
+  (err) => {
+    if (err) {
+      console.error(err.message);
+      return;
+    }
+    console.log('2 records are inserted.');
+  });
+
+//關閉資料庫
+...
+```
+### 第一次執行結果
+```bash
+Connected to the database.
+SQLITE_ERROR: no such table: users
+Table is created.
+Close the database connection.
+```
+
+### 第一次之後的執行結果
+```bash
+Connected to the database.
+Table is created.
+2 records are inserted.
+Close the database connection.
+```
+#### <span style="color:lightgreen">因為Sqlite平行(Parallelize)執行SQL命令，第一次執行時，CREATE TABLE尚未完成，就執行INSERT INTO，造成找不到TABLE的情況</span>
