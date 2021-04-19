@@ -237,4 +237,43 @@ Table is created.
 2 records are inserted.
 Close the database connection.
 ```
+## 12. 插入多筆資料
+```js
+...
+
+let records = [
+  { name: 'John', email: 'john@gmail.com' },
+  { name: 'Mary', email: 'mary@gmail.com' },
+  { name: 'Tom', email: 'tom@gmail.com' },
+]
+
+db.serialize(() => {
+  //建立資料表
+  db.run('CREATE TABLE IF NOT EXISTS users (name text, email text)',
+    (err) => {
+      if (err) {
+        console.error(err.message);
+        return;
+      }
+      console.log('Table is created.');
+    });
+
+  //插入多筆資料
+  let sql = `INSERT INTO users (name, email) VALUES ` + records.map(r => '(?, ?)').join(', ');
+  let data = records.flatMap(r => Object.values(r));
+
+  db.run(sql,
+    data,
+    (err) => {
+      if (err) {
+        console.error(err.message);
+        return;
+      }
+      console.log('2 records are inserted.');
+    });
+});
+
+//關閉資料庫
+...
+```
 
