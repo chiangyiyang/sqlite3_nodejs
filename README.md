@@ -362,3 +362,28 @@ db.each('SELECT * FROM users', (err, row) => {
 ...
 ```
 
+
+## 16. 查詢單筆資料
+```js
+...
+
+db.serialize(() => {
+  //查詢資料
+  const user_name = 'John';
+  db.get('SELECT * FROM users WHERE name = ?', [user_name], (err, row) => {
+    if (err) {
+      throw err;
+    }
+    return row ?
+      console.log(row.name, row.email) :
+      console.log(`No user found with name: ${user_name}`);
+  });
+
+  //刪除資料表
+  db.run('DROP TABLE IF EXISTS users',
+    callback('\n\nTable is dropped.'));
+});
+
+...
+```
+
