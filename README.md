@@ -404,3 +404,20 @@ db.run('UPDATE users SET email = ? WHERE name = ?',
 ...
 ```
 
+
+## 18. 刪除資料
+```js
+...
+
+//查詢資料
+...
+
+//刪除資料
+db.run('DELETE FROM users WHERE name = ?',
+  [ 'Mary'],
+  callback('Deleted!!'));
+
+//查詢資料
+...
+```
+
