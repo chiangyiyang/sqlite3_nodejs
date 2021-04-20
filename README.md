@@ -387,3 +387,20 @@ db.serialize(() => {
 ...
 ```
 
+
+## 17. 更新資料
+```js
+...
+
+//查詢資料
+...
+
+//更新資料
+db.run('UPDATE users SET email = ? WHERE name = ?',
+  ['john@outlook.com', 'John'],
+  callback('Updated!!'));
+
+//查詢資料
+...
+```
+
